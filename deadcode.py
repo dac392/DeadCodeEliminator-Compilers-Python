@@ -20,7 +20,9 @@ def main(args):
 	if(len(args)!=1):
 		print_error("Use command python3 deadcode.py < ilocfile\n")
 		sys.exit()
-
+	print_error("------------------------------------------------\n")
+	print_error("        Local Deadcode Elimination\n               415 Compilers\n                Spring 2022\n")
+	print_error("------------------------------------------------\n")
 	raw_instructions = piping()
 	instruction_list = Graph_t(raw_instructions)
 	instruction_list.serialize()
@@ -32,6 +34,6 @@ def main(args):
 	result = instruction_list.sweep()
 	for line in result:
 		print(line)
-
+	print_error("\n-----------------DONE---------------------------\n")
 if __name__ == '__main__':
 	main(sys.argv)
