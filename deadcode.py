@@ -26,7 +26,7 @@ def main(args):
 	instruction_list.serialize()
 	#instruction_list.print_graph()
 	instruction_list.get_worklist()
-	instruction_list.print_worklist()
+	#instruction_list.print_worklist()
 	instruction_list.Mark()
 	#instruction_list.print_marked()
 	result = instruction_list.sweep()

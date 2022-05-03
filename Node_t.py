@@ -33,7 +33,7 @@ class Node_t:
 		if(self.opcode in self.VOIDABLE):
 			return None
 		if(self.opcode == "outputAI"):
-			return self.fields[0]
+			return self.fields
 		return self.fields[0 : len(self.fields)-1]
 	def get_writable(self):
 		if(self.opcode == "outputAI"):
