@@ -2,37 +2,43 @@ import re
 class Node_t:
 	"""docstring for Node_t"""
 	ARITHMATIC = ["add", "sub", "mult"]
+	VOIDABLE = ["loadI", "load"]
+	CODE = 0
 	def __init__(self, inst, id_num):
 		self.inst_string = self.normalize(inst)
 		self.inst_id = id_num
-		temp = self.inst_string.split()
-		self.opcode = temp[0]
+		self.mark = False
+		self.opcode = None
 		self.fields = []
+		self.prev = None
 		self.next = None
+		self.set_fields()
+
+
+	def set_fields(self):
+		string = self.inst_string.split()
+		self.opcode = string[self.CODE]
 
 		if(self.opcode == "outputAI"):
-			self.fields.append(temp[1])
-		elif(self.opcode == "add" or self.opcode == "sub" or self.opcode == "mult"):
-			self.fields.append(temp[1])
-			self.fields.append(temp[3])
-			self.fields.append(temp[5])
+			self.fields.append(string[1])
+		elif(self.opcode in self.ARITHMATIC):
+			self.fields.append(string[1])
+			self.fields.append(string[3])
+			self.fields.append(string[5])
 		else:
-			self.fields.append(temp[1])
-			self.fields.append(temp[3])
-		
-		print()
-		print(self.opcode)
-		print(self.fields)
+			self.fields.append(string[1])
+			self.fields.append(string[3])
 
-	def getReadable(self):
-		if(self.opcode in self.ARITHMATIC):
-			return [self.fields[0], self.fields[1]]
-		return [self.fields[0]]
-	def getWritable(self):
-		return self.fields[-1]	# should be the last item, I hope
-
-
-
+	def get_readable(self):
+		if(self.opcode in self.VOIDABLE):
+			return None
+		if(self.opcode == "outputAI"):
+			return self.fields[0]
+		return self.fields[0 : len(self.fields)-1]
+	def get_writable(self):
+		if(self.opcode == "outputAI"):
+			return None
+		return self.fields[-1]
 
 
 	## helper functions

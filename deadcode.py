@@ -22,17 +22,16 @@ def main(args):
 		sys.exit()
 
 	raw_instructions = piping()
-	instruction_tree = Graph_t(raw_instructions)
-	instruction_tree.serialize()
-	instruction_tree.print_graph()
-
-
-
-
-
-
-
-
+	instruction_list = Graph_t(raw_instructions)
+	instruction_list.serialize()
+	#instruction_list.print_graph()
+	instruction_list.get_worklist()
+	instruction_list.print_worklist()
+	instruction_list.Mark()
+	#instruction_list.print_marked()
+	result = instruction_list.sweep()
+	for line in result:
+		print(line)
 
 if __name__ == '__main__':
 	main(sys.argv)
